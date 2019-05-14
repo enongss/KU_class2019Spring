@@ -1,0 +1,38 @@
+일반형은 y=ax+b : 제일 다루기 쉽고, 이런 형태로 데이터들이 많이 포착되기 때문!
+입력 및 출력에 대한 동그라미 화살표 그림을 graph라고 함
+Dense = Fully Connected : 빽뺵하게 연결해주는 것
+CNN (Convoltion Neural Network)
+Fully connected 안되고 Connection이 없다는 것은 화살표의 값, 파라미터의 값이 0이라는 의미!
+입력 3개, 출력 2개, 1 : 오류를 수정하는 과정을 반복하면서 최종적으로 4*2의 파라미터 값을 얻어냄! (결과물이 8개)
+
+입력과 출력을 direct로 연결할 수도 있지만, 중간에 층위를 넣을 수 있음!
+x와 y 페어가 있을 때 구해지는 것은 마찬가지로 파라미터들 4*2와 2*2 (총 12개) (입력값과 출력값만 있으면!)
+동그라미를 node라고 부르고 선들은 edge라고 부르자! 모든 graph는 node와 edge로 이루어짐
+이런 인공지능 시스템에는 graph theory와 linear algebra 개념이 들어감
+이 그래프는 인접한 layer(node들 끼리의 bunch)끼리는 connected가 되지만, 인접하지 않은 layer끼리는 connection을 불허한다는 제한이 있음. 또한 edge는 방향성 개념이 개입됨(반드시 왼쪽에서 오른쪽 방향, ax=y 의 형태)
+화살표들을 다른 말로 weight(가중치)라고 함
+입력을 다른 말로 input, 출력을 다른 말로 target이라고 부름(사실 출력 부분은 출력값이라기 보단 정답값에 가까움) -> 훈련 후에 남는 값들은 weight matrix
+훈련 과정에서 나오는 것들을 output이라 하고, 오차가 모두 수정되어 총 결과물로 나오는 것이 정답값! (중요 : output과 target의 차이점 자세히 알아보기)
+target과 output 간의 차이를 error라고 함
+error를 줄이기 위해서는 1) 데이터의 양이 많아야 함 2) 훈련을 많이 시켜야 함 3) graph를 잘 만들어야 함(관계의 복잡성에 따라 layer의 개수가 달라짐)
+입력부분과 출력부분 사이에 들어가는 것들을 Hidden layer라고 함
+Complexity가 높으면 1) Hidden layer의 수가 많고 2) Hidden layer 안의 node의 수가 많음
+layer의 수가 많아지면 deep learning이라고 함
+
+Linear : +와 *만 한다는 의미, line의 관계(x와 y의 관계가 선으로 나타나면 linear)
+x와 y의 관계가 linear하지 않은 경우 (x^2, 1/x 등) -> Linear한 상태에서 Nonlinearity를 어떻게 부여할 지가 핵심!
+***Sigmoid : 어떤 입력이 들어오더라도 1과 0 사이로 맞추는 개념. 1 부분이 좋아하느냐 0 부분이 싫어하느냐 이렇게 부여하듯이, continuous한 값을 categorical하게 바꿔줌. 이를 패턴 인식이라고 함 (이미지 속에 들어오는 값들은 연속적임 -> 이를 카테고리 별로 분류해주는 것은 linear한 것이 아님. 1과 가까우면 1로, 0과 가까우면 0으로 분류하는 것이 nonlinear한 것임 (그래프를 그려보면 쉽게 파악 가능!))
+***Nonlinearity를 포함시키는 방법 : y = sig(ax+b) <- x값에 대응하는 y값들에 대해 sigmoid를 치면 0보다 큰 것들은 다 1로 가고 0보다 작은 것들은 다 0으로 가버리게 만듦 (사진 참조 -> 오류가 있는것 같은데... 질문)
+
+인공지능은 regression과 classification 두가지가 있음. regression은 continuous -> continuous한 값으로 가는 것인 반면, classification은 continuous -> discrete한 값으로 감 (regression은 linear하게 가지만, classification은 nonlinear하게 감)
+커피를 마신 정도, 운동시간 등과 수면시간의 관계 = regression / 사진을 보여주고 이 사람이 남자인지 여자인지 맞추는 것 = classification
+
+<용어 정리>
+동그라미 = node, 선 = edge = weight, layer = node 끼리의 bunch, hidden layer = 입력부분과 출력부분 사이의 layer들, graph = node와 edge로 이루어진 그림
+입력부분 = input, 출력부분(훈련과정) = output, 출력부분(훈련 후) = target, 오차 = error = |target - output|
+High complexity = Many hidden layer, Many nodes in the hidden layer
+Many layer = Deep learning
+
+다음시간:
+경영학과와 경제학과에서 실제로 하는 regression을 다뤄볼 것!
+숙제 : https://www.kaggle.com/c/boston-housing 에 들어가서 13가지의 입력값들이 어떻게 영향을 미치는 지, 의미를 알아보기!

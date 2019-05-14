@@ -1,0 +1,31 @@
+집값에 대해 graph를 그린다면 출력은 꼭 하나지만, 입력은 우리가 정해야 함!
+입력부분에 들어갈 집값에 영향을 미칠 만한 것들을 생각해보면, 페인트 색깔, 도로의 넓이, 편의시설의 유무, 그 동네 세금 정도와 정당 성향 등등 100개 정도 적을 수 있다. 그 후 입력의 개수를 최소화(복잡성을 최소화)하기 위해 좋은 것만 고른다. 직관을 통해서 솎아낼 수도 있지만, 다른 방법을 생각해보자. X축을 도로 교통량, Y축을 집값으로 넣고 plot을 해보면 두 관계가 가시적으로 보인다. 더 자세히 보기 위해서는 correlation을 확인하면 된다. 좌파 우파와 같은 정당 성향은 숫자가 아니기 때문에, 민주당을 0번 한국당을 1번으로 해서 두 개가 비슷하게 나오면 그 요소는 빼도 되는 것이다. 그런데 만약 차이가 나는 것처럼 보이면 그 요소를 입력에 넣으면 된다.
+https://www.kaggle.com/c/boston-housing에 들어가면 보스턴 외곽의 집값이 어떤 요소들에 의해 좌우되는지 data 변수를 만들었다. 총 14개가 있는데, 맨 마지막 medv는 집값(출력부분, y값)에 해당하고 나머지 13개는 입력부분, x값에 해당한다. 이 데이터는 보스턴에서 일반화된 것이지만 뉴욕에도 적용시켜볼 수 있다. 즉 예측능력이 있다는 것이 regression의 역할이다. 보스턴 외곽도 마찬가지로 모든 값을 survey한 것이 아니라 10%만 했을 경우 regression을 통해 전체의 집값도 예측할 수 있다.
+
+crim : 범죄율(범죄율이 증가하면 집값이 하락함), zn : 25000 평방 피트에 대한 주거지 비율(주거지 <-> 상업지), indus : 도매회사의 비율, chas : Charles강과 인접한 정도(Dummy variable은 categorical할 때 사용함)(바로 옆에 강이 있으면 1, 그렇지않으면 0), nox : 질산 집중도, rm : 거주지의 평균 방 개수, age : 1940년 이전 소유자가 거주하는(자기 거주의) 단위 비율, dis : 다섯개 보스턴 상업지구에 대한 평균 , rad : 고속도롱 대한 접근성 정도, tax : 10000달러 당 재산세율, ptratio : 학생 대 교사의 비율, black : 인구 중 흑인의 비율, lstat : 인구 중 하위계층의 비율, medv : 소유자가 거주하는 집의 중간값
+
+한 사람 당 범죄율 / Per capita crime rate. - 
+2만 5천 평방 피트가 넘는 토지에 대한 거주지의 비율 Proportion of residential land zoned for lots over 25,000 square
+마을마다 상점이 없는 지역의 비율  / Proportion of non-retail business acres per town. 
+찰스강 인접 변수( 인접하면 1, 아니면 0)  / Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).  
+산화질소 농도 (1천만 개당 부품) / Nitric oxides concentration (parts per 10 million). 
+주택당 평균 객실 수 / ​Average number of rooms per dwelling. 
+1940년 이전에 건설된 자신 소유의 집 사용자의 비율 / Proportion of owner-occupied units built prior to 1940. /
+5개 직업센터의 가중거리 / Weighted distances to five Boston employment centres. 
+방사형 고속도로까지의 거리 / Index of accessibility to radial highways. 
+10000달러 당 재산세율 / Full-value property-tax rate per $10,000. 
+학생/교사 비율 ​/ Pupil-teacher ratio by town. 
+인구 중 흑인 비율 / 1000 (Bk - 0.63) * 2 where Bk is the proportion of Black people by town. 
+인구 중 하위계층 비율/ % lower status of the population.
+
+구글에 tensorflow.keras > 케라스:빠르게 훑어보기 / tensorflow keras dataset을 처음에 나오는 걸 들어가면 나오는 Modules가 tensorflow에서 제공하는 것!
+cifar10 : 총 10가지의 종류가 담긴 이미지를 보여주고, dataset에는 한 이미지에 대한 이름들이 각각 적혀있다. / cifar100 : 총 100가지의 종류
+- 사진이 깨지는 것을 보면 픽셀 하나가 숫자 하나라고 생각하면 된다. (질문 : 가로로 100, 세로로 100이 있으면 총 몇개의 숫자가 있을까? 답변 : 만약 흑백 사진이라면 총 10000개의 숫자가 있다(0부터 1까지의 값들). 하지만 컬러 사진이라면 rgb(red, green, blue) 정보가 있어야 컬러를 알 수 있기 때문에 총 10000개 * 3층 = 30000개의 숫자가 있다!) / 그렇다면 label은 어떻게 숫자로 저장할까? 1, 2, 3 ... 이렇게 순서대로 숫자를 매기면 그만이다!
+fashion_mnist : (질문 : 여기서 그림은 흑백일까 아닐까? 답변 : 흑백! rgb 중에서 한 층만 있는 것이다!)
+imdb : 세계에서 제일 큰 영화 관련 database (한국 영화도 포함되어 있음) / 사람들의 리뷰들을 일부 따온 것이 x값 -> 좋다 나쁘다는 말인지 구분한 것이 y값 (classification) / 이걸 응용해서 강의평에 대한 classification을 만들고 싶으면 data, x값는 고려대 클루와 고파스에서 crawling을 해서 가져오면 된다.
+mnist : 이 세상에서 제일 유명한 database / 흑백사진이고 각각의 그림에 대해 숫자가 적혀있다(digit classification).
+reuters : 신문 기사 주제를 분류해주는 dataset (입력은 text, 출력은 경제, 사회와 같은 기사의 주제)
+
+
+
+
